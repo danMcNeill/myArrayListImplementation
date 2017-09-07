@@ -1,12 +1,42 @@
 <project>
+	
+	<property name="BUILD.compiler" value="modern"/>
+	<property name="src" value="src/"/>
+	<property name="BUILD" value="src/BUILD/"/>
+	<property name="classes" value="${BUILD}/classes"/>
 
 	<target name="all">
-		<javac srcdir="src" destdir="BUILD/classes"/>
+		<javac srcdir="${src}" destdir="${classes}"
+			includes="myArrayList/**"
+			excludes="**/package.html"
+			debug="on"
+			optimize="on"
+			deprecation="off"
+			classpath="${classes}"/>
 	</target>
 
 	<target name="clean">
-		<delete dir="BUILD/classes"/>
-		<mkdir dir="BUILD/classes"/>
+		<delete dir="${BUILD}"/>
+		<mkdir dir="${BUILD}"/>
+		<mkdir dir="${classes}"/>
+	</target>
+
+
+	<target name="jar">
+		<mkdir dir="${BUILD}/jar"/>
+		<jar destfile="${BUILD}/jar/myArrayList.jar" basedir="${BUILD}/classes">
+			<manifest>
+				<attribute name="Main-Class" value="myArrayList.driver.Driver"/>
+			</manifest>
+		</jar>
+	</target>
+
+	<target name="run" depends="jar">
+		<java jar="${BUILD}/jar/myArrayList.jar" fork="true">
+			<arg value="${arg0}"/>
+			<arg value="${arg1}"/>
+			<arg value="${arg2}"/>
+		</java>
 	</target>
 
 
