@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class MyArrayList {
 	
 	private int[] intArray;
@@ -7,8 +9,8 @@ public class MyArrayList {
 	 * Constructor
 	 */
 	public MyArrayList() {
-		this.intArray = new int[50];
-		this.arraySize = 0;
+		intArray = new int[50];
+		arraySize = 0;
 	}
 	
 	/**
@@ -17,8 +19,8 @@ public class MyArrayList {
 	 */
 	public String toString() {
 		StringBuilder returnVal = new StringBuilder();
-		for(int i=0; i<this.size(); i++) {
-			returnVal.append(this.intArray[i]);
+		for(int i=0; i<size(); i++) {
+			returnVal.append(intArray[i]);
 			returnVal.append(" ");
 		}
 		return returnVal.toString();
@@ -29,7 +31,7 @@ public class MyArrayList {
 	 * @return int, # of items in int array
 	 */
 	public int size() {
-		return this.arraySize;
+		return arraySize;
 	}
 
 	/**
@@ -37,7 +39,7 @@ public class MyArrayList {
 	 * @return nothing
 	 */
 	public void setArraySize(int newSize) {
-		this.arraySize = newSize;
+		arraySize = newSize;
 	}
 
 	/**
@@ -46,8 +48,8 @@ public class MyArrayList {
 	 */
 	public int sum() {
 		int sum = 0;
-		for(int i=0; i<this.size(); i++) {
-			sum += this.intArray[i];
+		for(int i=0; i<size(); i++) {
+			sum += intArray[i];
 		}
 		return sum;
 	}
@@ -58,9 +60,10 @@ public class MyArrayList {
 	 */
 	public int indexOf(int value) {
 		int index = -1;
-		for(int i=0; i<this.size(); i++) {
-			if(value == this.intArray[i])
+		for(int i=0; i<size(); i++) {
+			if(value == intArray[i])
 				index = i;
+		}
 		return index;
 	}
 
@@ -69,17 +72,36 @@ public class MyArrayList {
 	 * @return nothing
 	 */
 	public void insertSorted(int newValue) {
-		if(this.size() == this.intArray.length) {
-			int newSize = this.size() + (this.size() / 2);
-			int[] temp = Arrays.copyOf(this.intArray, this.intArray.length);
-			this.intArray = new int[newSize];
-			for(int i=0; i<this.size(); i++) {
-				this.intArray[i] = temp[i];
+		int x = 0;
+
+		if(size() == intArray.length) {
+			while((x < intArray.length) && (intArray[x] != -1)) {
+				x++;
 			}
+			if(x == intArray.length) {
+
+				int newSize = size() + (size() / 2);
+				int[] temp = Arrays.copyOf(intArray, intArray.length);
+				intArray = new int[newSize];
+				for(int i=0; i<size(); i++) {
+					intArray[i] = temp[i];
+				}
+				setArraySize(size() +1);
+				intArray[arraySize-1] = newValue;
+				
+			}
+			else {
+				intArray[x] = newValue;
+				setArraySize(size() + 1);
+			}
+				
 		}
-		this.setArraySize(this.size() + 1);
-		this.intArray[this.arraySize-1] = newValue;
-		Arrays.sort(this.intArray);
+		else {
+			setArraySize(size() + 1);
+			intArray[arraySize-1] = newValue;
+		}
+
+		Arrays.sort(intArray);
 	}
 
 	/**
@@ -92,9 +114,9 @@ public class MyArrayList {
 			occurrence = indexOf(value);
 			if(occurrence == -1)
 				break;
-			this.intArray[occurrence] = null;
+			intArray[occurrence] = -1;
 		}
-		Arrays.sort(this.intArray);
+		Arrays.sort(intArray);
 	}
 
 	

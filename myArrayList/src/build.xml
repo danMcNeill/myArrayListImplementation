@@ -1,4 +1,4 @@
-<project>
+<project name="myArrayList" default="compile_all" basedir="..">
 	
 	<property name="BUILD.compiler" value="modern"/>
 	<property name="src" value="src/"/>
@@ -6,6 +6,8 @@
 	<property name="classes" value="${BUILD}/classes"/>
 
 	<target name="all">
+		<mkdir dir="${BUILD}"/>
+		<mkdir dir="${classes}"/>
 		<javac srcdir="${src}" destdir="${classes}"
 			includes="myArrayList/**"
 			excludes="**/package.html"
@@ -17,8 +19,6 @@
 
 	<target name="clean">
 		<delete dir="${BUILD}"/>
-		<mkdir dir="${BUILD}"/>
-		<mkdir dir="${classes}"/>
 	</target>
 
 

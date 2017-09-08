@@ -4,6 +4,6 @@ public class Driver {
 	 * Main method
 	 */
 	public static void main(String[] args) {
-		return 0;
+		System.out.println("Hello. This is running.");
 	}
 }
