@@ -1,6 +1,7 @@
 package myArrayList.driver;
 
-
+import java.io.File;
+import java.lang.NumberFormatException;
 
 public class Driver {
 
@@ -8,34 +9,45 @@ public class Driver {
 	 * Main method
 	 */
 	public static void main(String[] args) {
-		System.out.println("Hello. This is running.");
-		
-		/*
+
 		if(args.length != 2) { // not correct arguments, print error then exit
 			System.err.println("Must have two arguments. Exiting.");
 			return;
 		}
-		*/
-		MyArrayList my = new MyArrayList();
-		my.insertSorted(5);
-		my.insertSorted(9);
-		my.insertSorted(1);
-		my.insertSorted(0);
-		my.insertSorted(0);
-		my.insertSorted(11);
-		my.insertSorted(10);
-		my.insertSorted(6);
-		System.out.println(my.toString());
 
-		my.removeValue(2);
-		System.out.println(my.toString());
+		String s;
+		MyArrayList list = new MyArrayList();
 
-		my.removeValue(9);
-		my.removeValue(0);
-		System.out.println(my.toString());
+		//input
+		
+		File input = new File(args[0]);
+		if(!input.isFile()) { // file does not exist
+			System.err.println("Input file specified does not exist. Exiting.");
+			return;
+		}
 
-		System.out.println(my.sum());
+		int tempInt = 0;
+		FileProcessor fp = new FileProcessor(input);
+		while((s = fp.readLine()) != null) {
+			try {
+				tempInt = Integer.parseInt(s);
+			}
+			catch(NumberFormatException n) {
+				System.err.println(s + " is not a number, so it was skipped");
+				continue;
+			}
+			list.insertSorted(tempInt);
+		}
 
+
+		Results results = new Results();
+		MyArrayListTest test = new MyArrayListTest();
+
+		test.testMe(list, results);
+
+		System.out.println(results.getStrings().get(0));
+
+		System.out.println(list.toString());
 
 	}
 }

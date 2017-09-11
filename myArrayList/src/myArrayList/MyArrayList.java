@@ -75,7 +75,6 @@ public class MyArrayList {
 	 */
 	public void insertSorted(int newValue) {
 		int x = 0;
-		System.out.println("Inserting " + newValue);
 		if(size() == intArray.length) {
 			while((x < intArray.length) && (intArray[x] != -1)) {
 				x++;
@@ -88,8 +87,8 @@ public class MyArrayList {
 				for(int i=0; i<size(); i++) {
 					intArray[i] = temp[i];
 				}
-				setArraySize(size() +1);
-				intArray[arraySize-1] = newValue;
+				setArraySize(size() + 1);
+				intArray[0] = newValue;
 				
 			}
 			else {
@@ -100,7 +99,7 @@ public class MyArrayList {
 		}
 		else {
 			setArraySize(size() + 1);
-			intArray[arraySize-1] = newValue;
+			intArray[0] = newValue;
 		}
 
 		Arrays.sort(intArray);

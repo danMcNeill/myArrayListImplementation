@@ -1,5 +1,8 @@
+package myArrayList.driver;
+
 import java.util.List;
 import java.util.ArrayList;
+
 
 public class Results implements FileDisplayInterface, StdoutDisplayInterface {
 
@@ -10,6 +13,10 @@ public class Results implements FileDisplayInterface, StdoutDisplayInterface {
 	 */
 	public List<String> getStrings() {
 		return strings;
+	}
+
+	public void storeNewResult(String s) {
+		strings.add(s);
 	}
 
 	/**
