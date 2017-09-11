@@ -1,3 +1,5 @@
+package myArrayList.driver;
+
 import java.util.Arrays;
 
 public class MyArrayList {
@@ -19,7 +21,7 @@ public class MyArrayList {
 	 */
 	public String toString() {
 		StringBuilder returnVal = new StringBuilder();
-		for(int i=0; i<size(); i++) {
+		for(int i=intArray.length-arraySize; i<size()+intArray.length-arraySize; i++) {
 			returnVal.append(intArray[i]);
 			returnVal.append(" ");
 		}
@@ -48,7 +50,7 @@ public class MyArrayList {
 	 */
 	public int sum() {
 		int sum = 0;
-		for(int i=0; i<size(); i++) {
+		for(int i=intArray.length-arraySize; i<size()+intArray.length-arraySize; i++) {
 			sum += intArray[i];
 		}
 		return sum;
@@ -60,7 +62,7 @@ public class MyArrayList {
 	 */
 	public int indexOf(int value) {
 		int index = -1;
-		for(int i=0; i<size(); i++) {
+		for(int i=intArray.length-arraySize; i<size()+intArray.length-arraySize; i++) {
 			if(value == intArray[i])
 				index = i;
 		}
@@ -73,7 +75,7 @@ public class MyArrayList {
 	 */
 	public void insertSorted(int newValue) {
 		int x = 0;
-
+		System.out.println("Inserting " + newValue);
 		if(size() == intArray.length) {
 			while((x < intArray.length) && (intArray[x] != -1)) {
 				x++;
@@ -112,9 +114,11 @@ public class MyArrayList {
 		int occurrence = 0;
 		while(true) {
 			occurrence = indexOf(value);
-			if(occurrence == -1)
+			if(occurrence == -1) {
 				break;
+			}
 			intArray[occurrence] = -1;
+			setArraySize(size() - 1);
 		}
 		Arrays.sort(intArray);
 	}
