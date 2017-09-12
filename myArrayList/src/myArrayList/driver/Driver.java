@@ -12,40 +12,22 @@ public class Driver {
 
 		if(args.length != 2) { // not correct arguments, print error then exit
 			System.err.println("Must have two arguments. Exiting.");
-			return;
+			System.exit(0);
 		}
 
 		String s;
-		MyArrayList list = new MyArrayList();
-
-		//input
-		
-		File input = new File(args[0]);
-		if(!input.isFile()) { // file does not exist
-			System.err.println("Input file specified does not exist. Exiting.");
-			return;
-		}
-
-		int tempInt = 0;
-		FileProcessor fp = new FileProcessor(input);
-		while((s = fp.readLine()) != null) {
-			try {
-				tempInt = Integer.parseInt(s);
-			}
-			catch(NumberFormatException n) {
-				System.err.println(s + " is not a number, so it was skipped");
-				continue;
-			}
-			list.insertSorted(tempInt);
-		}
-
+		MyArrayList list = new MyArrayList(args[0]);
 
 		Results results = new Results();
 		MyArrayListTest test = new MyArrayListTest();
 
+		System.out.println(list.toString());
+
 		test.testMe(list, results);
 
-		System.out.println(results.getStrings().get(0));
+		for(int i=0; i<results.getStrings().size(); i++) {
+			System.out.println(results.getStrings().get(i));
+		}
 
 		System.out.println(list.toString());
 

@@ -6,6 +6,7 @@ public class MyArrayList {
 	
 	private int[] intArray;
 	private int arraySize;
+	private String inputFileName;
 
 	/**
 	 * Constructor
@@ -13,6 +14,71 @@ public class MyArrayList {
 	public MyArrayList() {
 		intArray = new int[50];
 		arraySize = 0;
+	}
+
+	public MyArrayList(String s) {
+		intArray = new int[50];
+		arraySize = 0;
+		inputFileName = s;
+
+		File input = new File(inputFileName);
+		if(!input.isFile()) { // file does not exist
+			System.err.println("Input file specified does not exist. Exiting.");
+			System.exit(0);
+		}
+
+		int tempInt = 0;
+		FileProcessor fp = new FileProcessor(input);
+		while((s = fp.readLine()) != null) {
+			try {
+				tempInt = Integer.parseInt(s);
+			}
+			catch(NumberFormatException n) {
+				System.err.println(s + " is not a number, so it was skipped");
+				continue;
+			}
+			if((tempInt >= 0) && (tempInt <= 10000))
+				list.insertSorted(tempInt);
+		}
+	}
+
+	/**
+	 * @return nothing
+	 */
+	public void insertInputs() {
+		File input = new File(inputFileName);
+		if(!input.isFile()) { // file does not exist
+			System.err.println("Input file specified does not exist. Exiting.");
+			System.exit(0);
+		}
+
+		int tempInt = 0;
+		FileProcessor fp = new FileProcessor(input);
+		while((s = fp.readLine()) != null) {
+			try {
+				tempInt = Integer.parseInt(s);
+			}
+			catch(NumberFormatException n) {
+				System.err.println(s + " is not a number, so it was skipped");
+				continue;
+			}
+			if((tempInt >= 0) && (tempInt <= 10000))
+				list.insertSorted(tempInt);
+		}
+	}
+
+	/**
+	 * @return String, input file name
+	 */
+	public String getInputFileName() {
+		return inputFileName;
+	}
+
+	/**
+	 * @return nothing
+	 */
+	public void setInputFileName(String s) {
+		inputFileName = s;
 	}
 	
 	/**
@@ -63,8 +129,10 @@ public class MyArrayList {
 	public int indexOf(int value) {
 		int index = -1;
 		for(int i=intArray.length-arraySize; i<size()+intArray.length-arraySize; i++) {
-			if(value == intArray[i])
+			if(value == intArray[i]) {
 				index = i;
+				break;
+			}
 		}
 		return index;
 	}
