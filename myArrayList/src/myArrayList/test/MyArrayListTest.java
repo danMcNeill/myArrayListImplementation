@@ -13,22 +13,13 @@ public class MyArrayListTest {
 		insertHundredNums(myArrayList, results);
 
 		//test3
-		insertTenRemoveTen(myArrayList, results);
+		insertTenRemoveFive(myArrayList, results);
 
 		//test4
 		insertHundredRemoveFifty(myArrayList, results);
 
 		//test5
 
-		
-		//test 1
-		resizeOnce(myArrayList, results);
-		//test 2
-		resizeAgain(myArrayList, results);
-		//test 3
-		removeThrees(myArrayList, results);
-		//test 4
-		removeAllKeep24(myArrayList, results);
 
 
 
@@ -72,39 +63,49 @@ public class MyArrayListTest {
 
 	}
 
-	public void removeThrees(MyArrayList list, Results results) {
+	public void insertTenRemoveFive(MyArrayList list, Results results) {
 		StringBuilder sb = new StringBuilder();
 		boolean worked = false;
+
+		list.clear();
 
 		int initSize = list.size();
 
-		list.removeValue(3);
+		for(int i=0; i<10; i++)
+			list.insertSorted(i);
+		for(int x=0; x<5; x++)
+			list.removeValue(x);
 
-		if(list.size() == (initSize - 5))
+
+		if(list.size() == (initSize + 5))
 			worked = true;
 
 		if(worked)
-			sb.append("test removeFiftyValues passed");
+			sb.append("test insertTenRemoveFive passed");
 		else
-			sb.append("test removeFiftyValues failed. Remove did not act as intended");
+			sb.append("test insertTenRemoveFive failed. Remove did not act as intended");
 		results.storeNewResult(sb.toString());
 	}
 
-	public void removeAllKeep24(MyArrayList list, Results results) {
+	public void insertHundredRemoveFifty(MyArrayList list, Results results) {
 		StringBuilder sb = new StringBuilder();
 		boolean worked = false;
 
-		for(int i=0; i<50; i++) 
-			if(i != 24)
-				list.removeValue(i);
+		list.clear();
+		int initSize = list.size();
 
-		if((list.indexOf(24) != -1) && (list.size() == 3))
+		for(int i=0; i<100; i++) 
+			list.insertSorted(i);
+		for(int x=0; x<50; x++)
+			list.removeValue(x);
+
+		if(list.size() == (initSize + 50))
 			worked = true;
 		
 		if(worked)
-			sb.append("test removeAllKeep24 passed");
+			sb.append("test insertHundredRemoveFifty passed");
 		else
-			sb.append("test removeAllKeep24 failed. The values were not removed as expected.");
+			sb.append("test insertHundredRemoveFifty failed. The values were not removed as expected.");
 		results.storeNewResult(sb.toString());
 	}
 

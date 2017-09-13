@@ -45,6 +45,23 @@ public class MyArrayList {
 	/**
 	 * @return nothing
 	 */
+	public void clear() {
+		try {
+			for(int i=0; i<intArray.length; i++) {
+				intArray[i] = 0;
+			}
+			setArraySize(0);
+		}
+		catch(IndexOutOfBoundsException e) {
+			System.out.println(e.toString());
+			e.printStackTrace();
+			System.exit(0);
+		}
+	}
+
+	/**
+	 * @return nothing
+	 */
 	public void insertInputs() {
 		File input = new File(inputFileName);
 		if(!input.isFile()) { // file does not exist
@@ -87,9 +104,16 @@ public class MyArrayList {
 	 */
 	public String toString() {
 		StringBuilder returnVal = new StringBuilder();
-		for(int i=intArray.length-arraySize; i<size()+intArray.length-arraySize; i++) {
-			returnVal.append(intArray[i]);
-			returnVal.append(" ");
+		try {
+			for(int i=intArray.length-arraySize; i<size()+intArray.length-arraySize; i++) {
+				returnVal.append(intArray[i]);
+				returnVal.append(" ");
+			}
+		}
+		catch(IndexOutOfBoundsException e) {
+			System.out.println(e.toString());
+			e.printStackTrace();
+			System.exit(0);
 		}
 		return returnVal.toString();
 	}
@@ -116,8 +140,15 @@ public class MyArrayList {
 	 */
 	public int sum() {
 		int sum = 0;
-		for(int i=intArray.length-arraySize; i<size()+intArray.length-arraySize; i++) {
-			sum += intArray[i];
+		try {
+			for(int i=intArray.length-arraySize; i<size()+intArray.length-arraySize; i++) {
+				sum += intArray[i];
+			}
+		}
+		catch(IndexOutOfBoundsException e) {
+			System.out.println(e.toString());
+			e.printStackTrace();
+			System.exit(0);
 		}
 		return sum;
 	}
@@ -128,11 +159,18 @@ public class MyArrayList {
 	 */
 	public int indexOf(int value) {
 		int index = -1;
-		for(int i=intArray.length-arraySize; i<size()+intArray.length-arraySize; i++) {
-			if(value == intArray[i]) {
-				index = i;
-				break;
+		try {
+			for(int i=intArray.length-arraySize; i<size()+intArray.length-arraySize; i++) {
+				if(value == intArray[i]) {
+					index = i;
+					break;
+				}
 			}
+		}
+		catch(IndexOutOfBoundsException e) {
+			System.out.println(e.toString());
+			e.printStackTrace();
+			System.exit(0);
 		}
 		return index;
 	}
@@ -143,34 +181,41 @@ public class MyArrayList {
 	 */
 	public void insertSorted(int newValue) {
 		int x = 0;
-		if(size() == intArray.length) {
-			while((x < intArray.length) && (intArray[x] != -1)) {
-				x++;
-			}
-			if(x == intArray.length) {
-
-				int newSize = size() + (size() / 2);
-				int[] temp = Arrays.copyOf(intArray, intArray.length);
-				intArray = new int[newSize];
-				for(int i=0; i<size(); i++) {
-					intArray[i] = temp[i];
+		try {
+			if(size() == intArray.length) {
+				while((x < intArray.length) && (intArray[x] != -1)) {
+					x++;
 				}
-				setArraySize(size() + 1);
-				intArray[0] = newValue;
+				if(x == intArray.length) {
+
+					int newSize = size() + (size() / 2);
+					int[] temp = Arrays.copyOf(intArray, intArray.length);
+					intArray = new int[newSize];
+					for(int i=0; i<size(); i++) {
+						intArray[i] = temp[i];
+					}
+					setArraySize(size() + 1);
+					intArray[0] = newValue;
+				
+				}
+				else {
+					intArray[x] = newValue;
+					setArraySize(size() + 1);
+				}
 				
 			}
 			else {
-				intArray[x] = newValue;
 				setArraySize(size() + 1);
+				intArray[0] = newValue;
 			}
-				
-		}
-		else {
-			setArraySize(size() + 1);
-			intArray[0] = newValue;
-		}
 
-		Arrays.sort(intArray);
+			Arrays.sort(intArray);
+		}
+		catch(IndexOutOfBoundsException e) {
+			System.out.println(e.toString());
+			e.printStackTrace();
+			System.exit(0);
+		}
 	}
 
 	/**
@@ -179,15 +224,22 @@ public class MyArrayList {
 	 */
 	public void removeValue(int value) {
 		int occurrence = 0;
-		while(true) {
-			occurrence = indexOf(value);
-			if(occurrence == -1) {
-				break;
+		try {
+			while(true) {
+				occurrence = indexOf(value);
+				if(occurrence == -1) {
+					break;
+				}
+				intArray[occurrence] = -1;
+				setArraySize(size() - 1);
 			}
-			intArray[occurrence] = -1;
-			setArraySize(size() - 1);
+			Arrays.sort(intArray);
 		}
-		Arrays.sort(intArray);
+		catch(IndexOutOfBoundsException e) {
+			System.out.println(e.toString());
+			e.printStackTrace();
+			System.exit(0);
+		}
 	}
 
 	

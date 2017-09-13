@@ -16,8 +16,10 @@ public class FileProcessor {
 		try {
 			br = new BufferedReader(new FileReader(file));
 		}
-		catch(FileNotFoundException e) {
+		catch(IOException e) {
 			System.err.println(e);
+			e.printStackTrace();
+			System.exit(0);
 		}
 	}
 
@@ -31,6 +33,8 @@ public class FileProcessor {
 		}
 		catch(IOException e) {
 			System.err.println(e);
+			e.printStackTrace();
+			System.exit(0);
 		}
 		return returnVal;
 		
@@ -42,6 +46,8 @@ public class FileProcessor {
 		}
 		catch(IOException e) {
 			System.err.println(e);
+			e.printStackTrace();
+			System.exit(0);
 		}
 	}
 
