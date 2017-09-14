@@ -6,22 +6,40 @@ public class MyArrayListTest {
 	public void testMe(MyArrayList myArrayList, Results results) {
 
 
+		MyArrayList list1 = new MyArrayList();
+		MyArrayList list2 = new MyArrayList();
+		MyArrayList list3 = new MyArrayList();
+		MyArrayList list4 = new MyArrayList();
+		MyArrayList list5 = new MyArrayList();
+		MyArrayList list6 = new MyArrayList();
+		MyArrayList list7 = new MyArrayList();
+		MyArrayList list8 = new MyArrayList();
+		MyArrayList list9 = new MyArrayList();
+		MyArrayList list10 = new MyArrayList();
+
+
 		//test1
-		insertTenNums(myArrayList, results);
+		insertTenNums(list1, results);
 
 		//test2
-		insertHundredNums(myArrayList, results);
+		insertHundredNums(list2, results);
 
 		//test3
-		insertTenRemoveFive(myArrayList, results);
+		insertTenRemoveFive(list3, results);
 
 		//test4
-		insertHundredRemoveFifty(myArrayList, results);
+		insertHundredRemoveFifty(list4, results);
 
 		//test5
+		sumToFiftyFive(list5, results);
 
+		//test 6
+		insertThousandRemoveHalf(list6, results);
 
+		//test 7
+		insertAndSumTenThousandNums(list7, results);
 
+		//test 8
 
 
 	}
@@ -31,7 +49,7 @@ public class MyArrayListTest {
 		boolean worked = false;
 		int initSize = list.size();
 		
-		for(int i=10; i>0; i--) 
+		for(int i=1; i<=10; i++) 
 			list.insertSorted(i);
 		if(list.size() == (initSize + 10))
 			worked = true;
@@ -67,13 +85,11 @@ public class MyArrayListTest {
 		StringBuilder sb = new StringBuilder();
 		boolean worked = false;
 
-		list.clear();
-
 		int initSize = list.size();
 
-		for(int i=0; i<10; i++)
+		for(int i=1; i<11; i++)
 			list.insertSorted(i);
-		for(int x=0; x<5; x++)
+		for(int x=1; x<6; x++)
 			list.removeValue(x);
 
 
@@ -91,12 +107,11 @@ public class MyArrayListTest {
 		StringBuilder sb = new StringBuilder();
 		boolean worked = false;
 
-		list.clear();
 		int initSize = list.size();
 
-		for(int i=0; i<100; i++) 
+		for(int i=1; i<=100; i++) 
 			list.insertSorted(i);
-		for(int x=0; x<50; x++)
+		for(int x=1; x<=50; x++)
 			list.removeValue(x);
 
 		if(list.size() == (initSize + 50))
@@ -109,6 +124,66 @@ public class MyArrayListTest {
 		results.storeNewResult(sb.toString());
 	}
 
+	public void sumToFiftyFive(MyArrayList list, Results results) {
+		StringBuilder sb = new StringBuilder();
+		boolean worked = false;
+		list.clear();
 
+		for(int i=1; i<11; i++) 
+			list.insertSorted(i);
+		if(list.sum() == 55)
+			worked = true;
+
+		if(worked)
+			sb.append("test sumToFiftyFive passed");
+		else
+			sb.append("test sumToFiftyFive failed. The sum function did not work as expected.");
+		results.storeNewResult(sb.toString());
+
+	}
+
+	public void insertThousandRemoveHalf(MyArrayList list, Results results) {
+		StringBuilder sb = new StringBuilder();
+		boolean worked = false;
+
+		for(int i=1; i<=1000; i++)
+			list.insertSorted(i);
+
+		for(int x=1; x<=500; x++) {
+			list.removeValue(x);
+		}
+
+
+		if(list.size() == 500)
+			worked = true;
+		if(worked)
+			sb.append("test insertThousandRemoveHalf passed");
+		else
+			sb.append("test insertThousandRemoveHalf failed. The insert and/or remove function did not act as intended.");
+		results.storeNewResult(sb.toString());
+
+	}
+
+	public void insertAndSumTenThousandNums(MyArrayList list, Results results) {
+		StringBuilder sb = new StringBuilder();
+		boolean worked = false;
+		int tempSum = 0;
+
+		for(int i=1; i<=10000; i++) {
+			tempSum += i;
+			list.insertSorted(i);
+		}
+
+		int sum = list.sum();
+
+		if(sum == tempSum)
+			worked = true;
+		if(worked)
+			sb.append("test insertAndSumTenThousandNums passed.");
+		else
+			sb.append("test insertAndSumTenThousandNums failed. Insert or sum did not work as expected.");
+
+		results.storeNewResult(sb.toString());
+	}
 
 }

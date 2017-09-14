@@ -1,6 +1,9 @@
 package myArrayList.driver;
 
 import java.util.Arrays;
+import java.io.File;
+import java.lang.NumberFormatException;
+import java.lang.IndexOutOfBoundsException;
 
 public class MyArrayList {
 	
@@ -20,7 +23,8 @@ public class MyArrayList {
 		intArray = new int[50];
 		arraySize = 0;
 		inputFileName = s;
-
+		insertInputs();
+		/*
 		File input = new File(inputFileName);
 		if(!input.isFile()) { // file does not exist
 			System.err.println("Input file specified does not exist. Exiting.");
@@ -40,6 +44,7 @@ public class MyArrayList {
 			if((tempInt >= 0) && (tempInt <= 10000))
 				list.insertSorted(tempInt);
 		}
+		*/
 	}
 
 	/**
@@ -68,6 +73,7 @@ public class MyArrayList {
 			System.err.println("Input file specified does not exist. Exiting.");
 			System.exit(0);
 		}
+		String s;
 
 		int tempInt = 0;
 		FileProcessor fp = new FileProcessor(input);
@@ -80,8 +86,9 @@ public class MyArrayList {
 				continue;
 			}
 			if((tempInt >= 0) && (tempInt <= 10000))
-				list.insertSorted(tempInt);
+				insertSorted(tempInt);
 		}
+		fp.closeFile();
 	}
 
 	/**
@@ -183,26 +190,17 @@ public class MyArrayList {
 		int x = 0;
 		try {
 			if(size() == intArray.length) {
-				while((x < intArray.length) && (intArray[x] != -1)) {
-					x++;
-				}
-				if(x == intArray.length) {
 
-					int newSize = size() + (size() / 2);
-					int[] temp = Arrays.copyOf(intArray, intArray.length);
-					intArray = new int[newSize];
-					for(int i=0; i<size(); i++) {
-						intArray[i] = temp[i];
-					}
-					setArraySize(size() + 1);
-					intArray[0] = newValue;
-				
+				int newSize = size() + (size() / 2);
+				int[] temp = Arrays.copyOf(intArray, intArray.length);
+				intArray = new int[newSize];
+				for(int i=0; i<size(); i++) {
+					intArray[i] = temp[i];
 				}
-				else {
-					intArray[x] = newValue;
-					setArraySize(size() + 1);
-				}
-				
+				setArraySize(size() + 1);
+				Arrays.sort(intArray);
+				intArray[0] = newValue;
+						
 			}
 			else {
 				setArraySize(size() + 1);
@@ -225,13 +223,14 @@ public class MyArrayList {
 	public void removeValue(int value) {
 		int occurrence = 0;
 		try {
+
 			while(true) {
 				occurrence = indexOf(value);
 				if(occurrence == -1) {
 					break;
 				}
-				intArray[occurrence] = -1;
-				setArraySize(size() - 1);
+				intArray[occurrence] = 0;
+				setArraySize(arraySize - 1);
 			}
 			Arrays.sort(intArray);
 		}
