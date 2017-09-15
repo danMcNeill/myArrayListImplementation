@@ -40,7 +40,13 @@ public class MyArrayListTest {
 		insertAndSumTenThousandNums(list7, results);
 
 		//test 8
+		insertFiftyThousandRemove25Thousand(list8, results);
 
+		//test 9
+		insertFiftyCheckSize(list9, results);
+
+		//test 10
+		insertFiftyRemove25Sum(list10, results);
 
 	}
 
@@ -167,7 +173,7 @@ public class MyArrayListTest {
 	public void insertAndSumTenThousandNums(MyArrayList list, Results results) {
 		StringBuilder sb = new StringBuilder();
 		boolean worked = false;
-		int tempSum = 0;
+		int tempSum = 0;	
 
 		for(int i=1; i<=10000; i++) {
 			tempSum += i;
@@ -185,5 +191,66 @@ public class MyArrayListTest {
 
 		results.storeNewResult(sb.toString());
 	}
+
+	public void insertFiftyThousandRemove25Thousand(MyArrayList list, Results results) {
+		StringBuilder sb = new StringBuilder();
+		boolean worked = false;
+		int tempSum = 0;
+
+		for(int i=1; i<=50000; i++)
+			list.insertSorted(i);
+
+		for(int x=1; x<=25000; x++)
+			list.removeValue(x);
+
+		if(list.size() == 25000)
+			worked = true;
+
+		if(worked)
+			sb.append("test insertHundredThousandRemoveFiftyThousand passed.");
+		else
+			sb.append("test insertHundredThousandRemoveFiftyThousand failed.");
+		results.storeNewResult(sb.toString());
+	}
+
+	public void insertFiftyCheckSize(MyArrayList list, Results results) {
+		StringBuilder sb = new StringBuilder();
+		boolean worked = false;
+		
+		for(int i=1; i<=50; i++)
+			list.insertSorted(i);
+		if(list.size() > 50)
+			worked = false;
+		else
+			worked = true;
+		if(worked)
+			sb.append("insertFiftyCheckSize passed.");
+		else
+			sb.append("insertFiftyCheckSize failed. The array resized when it shouldn't have.");
+		results.storeNewResult(sb.toString());
+	}
+
+	public void insertFiftyRemove25Sum(MyArrayList list, Results results) {
+		StringBuilder sb = new StringBuilder();
+		boolean worked = false;
+		int tempSum = 0;
+		for(int i=1; i<=50; i++) {
+			list.insertSorted(i);
+			if(i>25)
+				tempSum += i;
+		}
+
+		for(int x=1; x<=25; x++)
+			list.removeValue(x);
+
+		if(list.sum() == tempSum)
+			worked = true;
+		if(worked)
+			sb.append("test insertFiftyRemove25Sum passed.");
+		else
+			sb.append("test insertFiftyRemove25Sum failed.");
+		results.storeNewResult(sb.toString());
+	}
+
 
 }

@@ -33,10 +33,6 @@ public class Driver {
 
 		test.testMe(list, results);
 
-		for(int i=0; i<results.getStrings().size(); i++) {
-			System.out.println(results.getStrings().get(i));
-		}
-
 		results.writeToFile(args[1]);
 
 	}
